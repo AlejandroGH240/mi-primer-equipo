@@ -1,0 +1,18 @@
+{% extends "comentario/index.html" %}
+
+{% block content %}
+{% for Comentario in object_list %}
+        <article>
+            <div class="container-article">
+                <img src="{{ Comentario.registrarseforo_idregistroforo.Perfilforo.fotoperfil.url }}" />
+                <div>
+                    <h2 class="username"><a href="#">@{{Comentario.registrarseforo_idregistroforo}}</a></h2>
+                    <i class="clock"></i>
+                    <time data-time="#">{{ Comentario.fechahoracoment|naturaltime}}</time>
+                    <div class="post">{{Comentario.comentario}}</div>
+                </div>
+            </div>
+        </article>
+{% endfor %}
+
+{% endblock %}

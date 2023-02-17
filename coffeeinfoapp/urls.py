@@ -16,19 +16,34 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from modulo1.views import *
-from django.contrib.auth.views import LoginView,LogoutView
-
+from django.contrib.auth.views import LoginView,LogoutView#, password_reset, password_reset_done, password_reset_cofirm, password_reset_complete
+from django.conf import settings
+from django.conf.urls.static import static
+    
 
 urlpatterns = [
     #------------------------------login---------------------------------#
 
     path('', LoginView.as_view(template_name='login.html'), name="login"),
-    path('logout/', LogoutView.as_view(template_name='login.html'), name="logout"),
-
-
+    path('logout/', LogoutView.as_view(template_name='logout.html'), name="logout"),
     path('admin/', admin.site.urls),
     path('modulo1/',include(('modulo1.urls','modulo1'))),
     path('home/', Home, name= 'index'),
-
-   
+    #----------------------------------registro-----------------------------------------------
+    path('register/', registro_usuario, name='register_usuario'),
+    
+    #----------------------------------------recuperar contraseña--------------------------------
+    #path(r'^reset/password_reset', password_reset, {'template_name':'registration/password_reset_form.html',
+        #'email_template_name':'registration/password_reset_email.html'}, 
+        #name='password_reset'),
+    #path(r'^reset/password_reset_done', password_reset_done, {'template_name':'registration/password_reset_done.html'},
+        #name='password_reset_done'),
+    #path(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', password_reset_cofirm, {'template_name':'registration/password_reset_confirm.html'},
+        #name=password_reset_cofirm
+        #),
+    #path(r'^reset/done', password_reset_complete, {'template_name':'registration/password_reset_complete.html'},
+        #name='password_reset_complete'),
+    
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
